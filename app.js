@@ -14,4 +14,32 @@ var zippy = function(arrNum1, arrNum2, resultCurr){
 
 }
 
-zippy([1,2,3],[4,5,6])
+zippy([1,2,3],[4,5,6]);
+
+
+
+//parseQueryString("http://www.yelp.com/search?find_desc=tacos&find_loc=San+FranciscoCA")
+//=> {find_desc: "tacos", find_loc: "San+FranciscoCA"}
+
+//parseQueryString("http://www.reddit.com/r/aww/search?q=dogs&sort=top&t=week")
+//=> {q: "dogs", sort: "top", t: "week"}
+
+var parseQueStr = function(queStr){
+    var resultObj = {};
+    var arrPairStr = queStr.split('?')[1].split('&');
+
+    var convertToObj = function(arrPairStrCurr){        
+        arrPairStr = arrPairStrCurr || arrPairStr;
+        if (arrPairStr.length == 0){
+            console.log(resultObj);
+        }
+        else{           
+            resultObj[arrPairStr[0].split('=')[0]] = arrPairStr[0].split('=')[1];
+            return convertToObj(arrPairStr.slice(1));
+        }
+    }
+    convertToObj();
+}
+
+parseQueStr("http://www.yelp.com/search?find_desc=tacos&find_loc=San+FranciscoCA");
+parseQueStr("http://www.reddit.com/r/aww/search?q=dogs&sort=top&t=week");
